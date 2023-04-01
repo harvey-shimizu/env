@@ -24,13 +24,15 @@
     rmv = remote -v
     p = push origin main
 
-	br = branch
+	b = branch
     d = diff
     ds = diff --stat
     dc = diff --cached
 	dw = diff --word-diff
 	dlc = diff --cached HEAD^
 	dl = "!git ll -1"
+    rf = reflog
+    ri = rebase -i
 
     s = status
     ss = status -s
