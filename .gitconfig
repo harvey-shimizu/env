@@ -14,6 +14,7 @@
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Cgreen%s\\ %Cblue[%cn]\\ %Creset%ad" --decorate --date=local --compact-summary
 	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+    lg = log --pretty=format:"%C(yellow)%h\\ %Creset%s\\ %Cblue[%cn]" --graph
 
     a = add
     ap = add -p
@@ -21,18 +22,20 @@
     cm = commit -m
     cam = commit -a -m
     m = commit --amend --verbose
-    rmv = remote -v
+    rmtv = remote -v
     p = push origin main
 
 	b = branch
     d = diff
     ds = diff --stat
-    dc = diff --cached
+    #dc = diff --cached
+    dh = diff HEAD..origin/main
+    dho = diff HEAD...origin/main
 	dw = diff --word-diff
 	dlc = diff --cached HEAD^
 	dl = "!git ll -1"
-    rf = reflog
-    ri = rebase -i
+    ref = reflog
+    rbi = rebase -i
 
     s = status
     ss = status -s
@@ -46,3 +49,7 @@
 
 	# list aliases
     la = "!git config -l | grep alias | cut -c 7-"
+[core]
+	editor = vim
+[init]
+	defaultbranch = main
