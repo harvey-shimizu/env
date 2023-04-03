@@ -24,18 +24,30 @@
     m = commit --amend --verbose
     rmtv = remote -v
     p = push origin main
-
 	b = branch
+
     d = diff
+    # git diff br1:foo/bar.txt br2:hoge/fuga.txt
+    # git diff br1 br2 foo/bar.txt
     ds = diff --stat
     #dc = diff --cached
-    dh = diff HEAD..origin/main
-    dho = diff HEAD...origin/main
+    dh = diff HEAD
+    dHo = diff HEAD..origin/main
+    dHom = diff HEAD...origin/main
 	dw = diff --word-diff
 	dlc = diff --cached HEAD^
 	dl = "!git ll -1"
     ref = reflog
     rbi = rebase -i
+    res = restore --staged
+
+    # the way of getting previous revison to another local branch
+    #git fetch origin
+    #git log origin/<remote-branch-name>
+    #git checkout -b <new-local-branch-name> <commit-hash>
+
+    #git tag -a 'v1.0.0' -m '20210623' 3d71f39
+    #git push origin <tag name>
 
     s = status
     ss = status -s
@@ -49,7 +61,12 @@
 
 	# list aliases
     la = "!git config -l | grep alias | cut -c 7-"
+    #dwm = "!f(){diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g');};f"
 [core]
 	editor = vim
+	whitespace = cr-at-eol
+	autocrlf = true
 [init]
 	defaultbranch = main
+[fetch]
+	prune = true
