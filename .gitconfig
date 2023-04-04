@@ -15,6 +15,7 @@
 	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
     lg = log --pretty=format:"%C(yellow)%h\\ %Creset%s\\ %Cblue[%cn]" --graph
+    last = log -1 HEAD
 
     a = add
     ap = add -p
@@ -48,8 +49,8 @@
     rbi = rebase -i
     re  = restore
     res = restore --staged
-
     rh = reset HEAD
+    unstage = restore --staged
 
     # the way of getting previous revison to another local branch
     #git fetch origin
