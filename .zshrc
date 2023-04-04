@@ -175,17 +175,17 @@ alias zshconfig="vim ~/.zshrc"
 alias wp='/mnt/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/Shared/Python39_64/python.exe'
 
 #diff
-#diff <(sort RPS-01-B6M25006F.csv|sed 's///g') <(sort g.txt|sed 's/^M//g') > diff.txt
+#diff <(sort RPS-01-B6M25006F.csv|sed 's///g') <(sort g.txt|sed 's/^M//g') > diff.txt
 function wmdiff(){
     #remove CRLF at each end of lines, sort and diff.
-    diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+    diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
 }
 function wmdiff-supp(){
     #remove CRLF at each end of lines, sort and diff.
-    diff -y -W 150 --suppress-common-lines <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+    diff -y -W 150 --suppress-common-lines <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
 }
 function wmdif-left(){
-    diff -y -W 150 --left-column <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+    diff -y -W 150 --left-column <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
 }
 
 function wm-gdiff(){

@@ -46,6 +46,7 @@
 	dl = "!git ll -1"
     ref = reflog
     rbi = rebase -i
+    re  = restore
     res = restore --staged
 
     rh = reset HEAD
