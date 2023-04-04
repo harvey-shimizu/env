@@ -18,28 +18,37 @@
 
     a = add
     ap = add -p
+    c = commit
     ca = commit -a --verbose
     cm = commit -m
     cam = commit -a -m
+    acm = commit -a -m
     m = commit --amend --verbose
     rmtv = remote -v
     p = push origin main
 	b = branch
 
     d = diff
+    dt = difftool
+    dtp = difftool --tool=vimdiff --no-prompt
     # git diff br1:foo/bar.txt br2:hoge/fuga.txt
     # git diff br1 br2 foo/bar.txt
-    ds = diff --stat
+    ds = diff --staged
+    dc = diff --cached
+    dst = diff --stat
     #dc = diff --cached
     dh = diff HEAD
     dHo = diff HEAD..origin/main
     dHom = diff HEAD...origin/main
 	dw = diff --word-diff
 	dlc = diff --cached HEAD^
+
 	dl = "!git ll -1"
     ref = reflog
     rbi = rebase -i
     res = restore --staged
+
+    rh = reset HEAD
 
     # the way of getting previous revison to another local branch
     #git fetch origin
@@ -70,3 +79,7 @@
 	defaultbranch = main
 [fetch]
 	prune = true
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
