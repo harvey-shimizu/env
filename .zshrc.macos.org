@@ -48,7 +48,13 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
 #zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
 zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
+# precmd () { vcs_info }
+
+precmd_functions+=( precmd_vcs_info  )
+setopt prompt_subst
+RPROMPT='${vcs_info_msg_0_}'
+# PROMPT='${vcs_info_msg_0_}%# '
+zstyle ':vcs_info:git:*' formats '%b'
 
 #export PROMPT='%n@%m %F{green}%D{%b/%d/%y(%a)}%f%F{yellow}%D{%R(%Z)}%f:[%F{cyan1}%~%f]${vcs_info_msg_0_}${NEWLINE}%% '
 export PROMPT='%F{green}%D{%b/%d/%y(%a)}%f%F{yellow}%D{%R(%Z)}%f:[%F{cyan1}%~%f]${vcs_info_msg_0_}${NEWLINE}%% '

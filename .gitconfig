@@ -6,7 +6,9 @@
 [alias]
 
     # one-line log
-    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    #l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    #l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph --all --oneline -10
+    l = log --graph --all --oneline -10
 	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
     # "--numstat" option displays number of added and deleted lines in decimal notation
     ln = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
@@ -76,7 +78,7 @@
 [core]
 	editor = vim
 	whitespace = cr-at-eol
-	autocrlf = true
+	autocrlf = false
 [init]
 	defaultbranch = main
 [fetch]

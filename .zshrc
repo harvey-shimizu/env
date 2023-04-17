@@ -1,5 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export LOCATE_PATH=$HOME
+export HISTFILESIZE=10000
 
 # Path to your oh-my-zsh installation.
 #export ZSH="$HOME/.oh-my-zsh"
@@ -93,8 +95,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
-#export PS1="%N %~ %# "
-export PS1="[%D/%t] %~> "
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -120,86 +120,138 @@ export PS1="[%D/%t] %~> "
 # --bind='ctrl-a:toggle-all,?:toggle-preview'
 # "
 
-#alias git
-alias g='git'
-alias gg='git log --oneline --decorate --graph --branches --tags --remotes --all'
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info  }
+precmd_functions+=( precmd_vcs_info  )
+setopt prompt_subst
+RPROMPT='${vcs_info_msg_0_}'
+#
+#zstyle ':vcs_info:git:*' check-for-changes true
+##zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
+#zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
+#zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
+##zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
+#zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
+## PROMPT='${vcs_info_msg_0_}%# '
+#zstyle ':vcs_info:git:*' formats '%b'
 
-qp() {
-    [[ -z "(" ]] && echo "Please enter a commit message:";
-    typeset msg="$( [[ -n "(" ]] && echo "$*" || echo $(head -1) )";
-    date;
-    #git pull;
-    git add .;
-    git commit -m "$msg";
-    git push;
-    date
-}
+# Load vcs information
+#autoload -Uz vcs_info
+# precmd() { vcs_info }
 
-#alias py='python3'
-alias py='bpython'
-alias python='python'
-alias bp='bpython'
-alias zs='echo "source ~/.zshrc" && source ~/.zshrc'
-alias zv='echo "vi ~/.zshrc" && vi ~/.zshrc'
+# Format the vcs_info_msg_0_ variable
+#COLOR_GIT=$'\e[38;5;39m'
+#COLOR_DEF=$'\e[0m'
+#zstyle ':vcs_info:git:*' formats ${COLOR_GIT}'(%b)'${COLOR_DEF}
+
+## Setup the prompt with git branch name
+#setopt PROMPT_SUBST
+#zstyle ':vcs_info:git:*' check-for-changes true
+##zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
+#zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
+#zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
+##zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
+#zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
+## precmd () { vcs_info }
+#
+#RPROMPT='${vcs_info_msg_0_}'
+#PROMPT='${vcs_info_msg_0_}%# '
+zstyle ':vcs_info:git:*' formats '%b'
+#
+# Variables common to all prompt styles
+prompt_newline=$'\n%{\r%}'
+#export PS1="%N %~ %# "
+#export PS1="[%D/%t] %~> "
+export PS1="%~> "
+#export PROMPT='%n@%m %F{green}%D{%b/%d/%y(%a)}%f%F{yellow}%D{%R(%Z)}%f:[%F{cyan1}%~%f]${vcs_info_msg_0_}${NEWLINE}%% '
+export PROMPT='%F{green}%D{%b/%d/%y(%a)}%f%F{yellow}%D{%R(%Z)}%f:[%F{cyan1}%~%f]${prompt_newline}> '
+#
+#
+##alias git
+#alias g='git'
+#alias gg='git log --oneline --decorate --graph --branches --tags --remotes --all'
+#
+#qp() {
+#    [[ -z "(" ]] && echo "Please enter a commit message:";
+#    typeset msg="$( [[ -n "(" ]] && echo "$*" || echo $(head -1) )";
+#    date;
+#    #git pull;
+#    git add .;
+#    git commit -m "$msg";
+#    git push;
+#    date
+#}
+#
+##alias py='python3'
+#alias py='bpython'
+#alias python='python'
+#alias bp='bpython'
+#alias zs='echo "source ~/.zshrc" && source ~/.zshrc'
+#alias zv='echo "vi ~/.zshrc" && vi ~/.zshrc'
 alias l='ls -1A -G --color'
 alias ls='ls -G --color'
 alias ll='ls -lh -G'
-alias la='ll -A'
-alias lc='lt -c'
-alias lk='ll -Sr'
 alias lm='la | "$PAGER"'
-alias ln='nocorrect ln -i'
-alias lni='nocorrect ln -i'
-alias locate='noglob locate'
-alias lr='ll -R'
-alias lt='ll -tr'
-alias lu='lt -u'
-alias lx='ll -XB'
-alias zs="source $HOME/.zshrc"
-alias zv="vi $HOME/.zshrc"
-alias vv="vi $HOME/.vimrc"
-alias p='potion'
-alias t='tmux'
-alias sg='stack ghci'
+#alias la='ll -A'
+#alias lc='lt -c'
+#alias lk='ll -Sr'
+#alias ln='nocorrect ln -i'
+#alias lni='nocorrect ln -i'
+#alias locate='noglob locate'
+#alias lr='ll -R'
+#alias lt='ll -tr'
+#alias lu='lt -u'
+#alias lx='ll -XB'
+#alias zs="source $HOME/.zshrc"
+#alias zv="vi $HOME/.zshrc"
+#alias vv="vi $HOME/.vimrc"
+#alias p='potion'
+#alias t='tmux'
+#alias sg='stack ghci'
 alias lz='lazygit'
-
-#alias vim='nvim'
-alias vi='vim'
-alias nv='nvim'
-alias view='nvim -R'
-alias ghci='TERM=dumb ghci'
-
-alias zshconfig="vim ~/.zshrc"
-
-# For windows python
-alias wp='/mnt/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/Shared/Python39_64/python.exe'
-
-#diff
-#diff <(sort RPS-01-B6M25006F.csv|sed 's///g') <(sort g.txt|sed 's/^M//g') > diff.txt
-function wmdiff(){
-    #remove CRLF at each end of lines, sort and diff.
-    diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
-}
-function wmdiff-supp(){
-    #remove CRLF at each end of lines, sort and diff.
-    diff -y -W 150 --suppress-common-lines <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
-}
-function wmdif-left(){
-    diff -y -W 150 --left-column <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
-}
-
-function wm-gdiff(){
-    diffwm <(git show origin:./$1 | sort ) <(git show HEAD:./$2 | sort)
-}
+alias rmcr="file . | (awk -F : '/CRLF/ && $0=(') | xargs -P0 -I {} sed -i 's/\r//' {}')'"
+alias crlf2lf='find . -name "*" -not -path "*.git*" -type f -print0 | xargs -r -0 -L 500 nkf -Lu --overwrite'
+alias lf2crlf='find . -name "*" -not -path "*.git*" -type f -print0 | xargs -r -0 -L 500 nkf -Lw --overwrite'
 #
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-#[ -f "/Users/harveyshimizu/.ghcup/env" ] && source "/Users/harveyshimizu/.ghcup/env" # ghcup-env
-
-## 補完機能の強化
-## http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be
+##alias vim='nvim'
+#alias vi='vim'
+#alias nv='nvim'
+#alias view='nvim -R'
+#alias ghci='TERM=dumb ghci'
+#
+#alias zshconfig="vim ~/.zshrc"
+#
+## For windows python
+#alias wp='/mnt/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/Shared/Python39_64/python.exe'
+#
+##diff
+##diff <(sort RPS-01-B6M25006F.csv|sed 's///g') <(sort g.txt|sed 's/^M//g') > diff.txt
+#function wmdiff(){
+#    #remove CRLF at each end of lines, sort and diff.
+#    diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+#}
+#function wmdiff-supp(){
+#    #remove CRLF at each end of lines, sort and diff.
+#    diff -y -W 150 --suppress-common-lines <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+#}
+#function wmdif-left(){
+#    diff -y -W 150 --left-column <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+#}
+#
+#function wm-gdiff(){
+#    diffwm <(git show origin:./$1 | sort ) <(git show HEAD:./$2 | sort)
+#}
+##
+##[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#
+## To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+##[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+##[ -f "/Users/harveyshimizu/.ghcup/env" ] && source "/Users/harveyshimizu/.ghcup/env" # ghcup-env
+#
+### 補完機能の強化
+### http://qiita.com/ToruIwashita/items/5cfa382e9ae2bd0502be
 #autoload -Uz compinit && compinit -u
 #zstyle ':completion:*' menu select interactive
 #setopt menu_complete
@@ -212,13 +264,14 @@ function wm-gdiff(){
 #bindkey -M menuselect '^n' down-line-or-history               # 補完候補1つ下へ
 #bindkey -M menuselect '^p' up-line-or-history                 # 補完候補1つ上へ
 #bindkey -M menuselect '^r' history-incremental-search-forward # 補完候補内インクリメンタルサーチ
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-#source $ZSH/oh-my-zsh.sh
-export DISPLAY=:0.0
-export GOROOT=$HOME/tmp/go_src/go
-
-# ディレクトリ名を入力するだけでcdできるようにする
-# setopt auto_cd
-alias ...='cd ../..'
-alias ....='cd ../../..'
+#
+## To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+##source $ZSH/oh-my-zsh.sh
+#export DISPLAY=:0.0
+#export GOROOT=$HOME/tmp/go_src/go
+#
+## ディレクトリ名を入力するだけでcdできるようにする
+## setopt auto_cd
+##alias ...='cd ../..'
+##alias ....='cd ../../..'
+#

@@ -93,8 +93,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
-#export PS1="%N %~ %# "
-export PS1="[%D/%t] %~> "
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -119,6 +117,53 @@ export PS1="[%D/%t] %~> "
 # --bind='ctrl-z:ignore,ctrl-]:replace-query,up:preview-page-up'
 # --bind='ctrl-a:toggle-all,?:toggle-preview'
 # "
+
+
+#autoload -Uz vcs_info
+#precmd_vcs_info() { vcs_info  }
+#precmd_functions+=( precmd_vcs_info  )
+#setopt prompt_subst
+#RPROMPT='${vcs_info_msg_0_}'
+#
+#zstyle ':vcs_info:git:*' check-for-changes true
+##zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
+#zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
+#zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
+##zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
+#zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
+## PROMPT='${vcs_info_msg_0_}%# '
+#zstyle ':vcs_info:git:*' formats '%b'
+
+# Load vcs information
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+# Format the vcs_info_msg_0_ variable
+#COLOR_GIT=$'\e[38;5;39m'
+COLOR_DEF=$'\e[0m'
+#zstyle ':vcs_info:git:*' formats ${COLOR_GIT}'(%b)'${COLOR_DEF}
+
+# Setup the prompt with git branch name
+setopt PROMPT_SUBST
+zstyle ':vcs_info:git:*' check-for-changes true
+#zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
+zstyle ':vcs_info:git:*' stagedstr "%F{red}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
+#zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
+zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+# precmd () { vcs_info }
+
+#RPROMPT='${vcs_info_msg_0_}'
+# PROMPT='${vcs_info_msg_0_}%# '
+#zstyle ':vcs_info:git:*' formats '%b'
+
+#export PS1="%N %~ %# "
+#export PS1="[%D/%t] %~> "
+#export PROMPT='%n@%m %F{green}%D{%b/%d/%y(%a)}%f%F{yellow}%D{%R(%Z)}%f:[%F{cyan1}%~%f]${vcs_info_msg_0_}${NEWLINE}%% '
+export PROMPT='%F{green}%D{%b/%d/%y(%a)}%f%F{yellow}%D{%R(%Z)}%f:[%F{cyan1}%~%f]${vcs_info_msg_0_}${NEWLINE}%% '
+
 
 #alias git
 alias g='git'
@@ -175,17 +220,17 @@ alias zshconfig="vim ~/.zshrc"
 alias wp='/mnt/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/Shared/Python39_64/python.exe'
 
 #diff
-#diff <(sort RPS-01-B6M25006F.csv|sed 's///g') <(sort g.txt|sed 's/^M//g') > diff.txt
+#diff <(sort RPS-01-B6M25006F.csv|sed 's///g') <(sort g.txt|sed 's/^M//g') > diff.txt
 function wmdiff(){
     #remove CRLF at each end of lines, sort and diff.
-    diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+    diff -y <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
 }
 function wmdiff-supp(){
     #remove CRLF at each end of lines, sort and diff.
-    diff -y -W 150 --suppress-common-lines <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+    diff -y -W 150 --suppress-common-lines <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
 }
 function wmdif-left(){
-    diff -y -W 150 --left-column <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
+    diff -y -W 150 --left-column <(sort $1 | sed 's///g') <(sort $2 | sed 's///g')
 }
 
 function wm-gdiff(){
@@ -222,3 +267,6 @@ export GOROOT=$HOME/tmp/go_src/go
 # setopt auto_cd
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+alias edgconf='vi ~/.gitconfig'
+alias cpgconf='cp -i ~/.gitconfig .`~/env/.gitconfig='
